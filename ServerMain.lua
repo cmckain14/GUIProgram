@@ -63,15 +63,27 @@ repeat
 	print(xPos <= c2[2])
 	print(yPos == c2["y"])
         if xPos >= c1[1] and xPos <= c1[2] and yPos == c1["y"] then
+                if x == 2 then
+			monitor.setCursorPos(c1x,c2y)
+			monitor.setTextColor(colors.green)
+			monitor.write(c1["text"])
+			x = x - 1
+			end
+		if x == 3 then
+			monitor.setCursorPos(c1x,c2y)
+			monitor.setTextColor(colors.red)
+			monitor.write(c1["text"])
+			x = x - 1
+			end
 	elseif xPos >= c2[1] and xPos <= c2[2] and yPos == c2["y"] then
 		if x == 2 then
-			monitor.setCursorPos(13,1)
+			monitor.setCursorPos(c2x,c2y)
 			monitor.setTextColor(colors.green)
 			monitor.write(c2["text"])
 			x = x - 1
 			end
 		if x == 3 then
-			monitor.setCursorPos(13,1)
+			monitor.setCursorPos(c2x,c2y)
 			monitor.setTextColor(colors.red)
 			monitor.write(c2["text"])
 			x = x - 1
