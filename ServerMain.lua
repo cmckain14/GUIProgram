@@ -37,18 +37,22 @@ c1 = {}
 c2 = {}
 c3 = {}
 c4 = {}
-c1["text"] = "[Clear]"
-c2["text"] = "[Exit]"
-c3["text"] = "[Open]"
-c4["text"] = "[Close]"
+c1["text"] = "[Clear]" --Upper left
+c2["text"] = "[Exit]" --Upper right
+c3["text"] = "[Open]" --Lower left
+c4["text"] = "[Close]" --Lower right
+c1x,c1y = 1,1
+c2x,c2y = 13,1
+c3x,c3y = 1,12
+c4x,c4y = 12,12
 cb = peripheral.wrap("top")
 monitor = peripheral.wrap("left")
 monitor.setTextColor(colors.white)
 monitor.clear()
-watch(c1,1,1)
-watch(c2,13,1)
-watch(c3,1,12)
-watch(c4,12,12)
+watch(c1,c1x,c1y)
+watch(c2,c2x,c2y)
+watch(c3,c3x,c3y)
+watch(c4,c4x,c4y)
 x = 3
 repeat
 	event, side, xPos, yPos = os.pullEvent("monitor_touch")
@@ -58,7 +62,8 @@ repeat
 	print(xPos >= c2[1])
 	print(xPos <= c2[2])
 	print(yPos == c2["y"])
-	if xPos >= c2[1] and xPos <= c2[2] and yPos == c2["y"] then
+        if xPos >= c1[1] and xPos <= c1[2] and yPos == c1["y"] then
+	elseif xPos >= c2[1] and xPos <= c2[2] and yPos == c2["y"] then
 		if x == 2 then
 			monitor.setCursorPos(13,1)
 			monitor.setTextColor(colors.green)
@@ -71,5 +76,7 @@ repeat
 			monitor.write(c2["text"])
 			x = x - 1
 			end
-		end
+        elseif xPos >= c3[1] and xPos <= c3[2] and yPos == c3["y"] then
+        elseif xPos >= c4[1] and xPos <= c4[2] and yPos == c4["y"] then
+        end
 until x == 1
