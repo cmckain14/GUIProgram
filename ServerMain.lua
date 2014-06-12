@@ -87,6 +87,7 @@ function checks2cb()
 	until imdone == true
 end
 function ping(i,timeout)
+	rednet.open(rnside)
 	local function gg()
 		id,message = rednet.receive(timeout)
 		end
@@ -183,13 +184,14 @@ function main()
 				screen = 1
 				print("Screen 1!")
 				monitor.clear()
-				writing()
+				
 				end
 			ooooo = nil	
 			end
 		monitor.setTextColor(colors.white)
 	until x == 1
 end
+rnside = "right"
 c1 = {}
 c2 = {}
 c3 = {}
@@ -202,8 +204,7 @@ c1x,c1y = 1,1
 c2x,c2y = 12,1
 c3x,c3y = 1,12 
 c4x,c4y = 11,12
-pinging = false
-f = ""
+f = "Pinging..."
 status = {}
 status[1] = f
 status[2] = f
