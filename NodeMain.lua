@@ -1,3 +1,12 @@
+function intro()
+	clear()
+	textutils.slowPrint("Booting up "..name)
+	x,y = term.getCursorPos()
+	for i=1,5 do
+		term.setCursorPos(x,y)
+		write("    ")
+		term.setCursorPos(x,y)
+		textutils.slowPrint("...")
 function send(m)
 	rednet.send(0,m)
 	end
