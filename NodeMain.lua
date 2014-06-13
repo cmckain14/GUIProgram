@@ -7,6 +7,8 @@ function intro()
 		write("    ")
 		term.setCursorPos(x,y)
 		textutils.slowPrint("...")
+              end --Spaced
+end
 function send(m)
 	rednet.send(0,m)
 	end
