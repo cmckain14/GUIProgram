@@ -1,4 +1,3 @@
 GUIProgram
 ==========
 
-For CC
