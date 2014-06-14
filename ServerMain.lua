@@ -5,9 +5,9 @@ function tn(q)
    local q = tonumber(q)
 end
 function errormessage(text)
-   term.setTextcolor(colors.red)
+   term.setTextcolor(colors["red"])
    print(text)
-   term.setTextcolor(colors.white)
+   term.setTextcolor(colors["white"])
 end
 function printerror(code,response,line)
    if code == 0 then --watchnumber()
@@ -92,17 +92,14 @@ function ping(i,timeout)
 		id,message = rednet.receive(timeout)
 		end
     if not i == nil then
-        rednet.send(i,"1st place Packet!")
+        rednet.send(i,m1)
         parallel.waitForAny( gg, checks2cb )
         if id == nil or message == nil then
           status[i] = "Timed out."
-        elseif id == i and message == "Good job!" then
+        elseif id == i and message == r1 then
           status[i] = "Connected."
         end
    end
-end
-function writenodes1()
-
 end
 function writing()
 	wtm(c1,c1x,c1y)
@@ -137,9 +134,9 @@ function main()
 				if c2["xx"] == "On" then
 					print("Off.")
 					monitor.setCursorPos(c2x,c2y)
-					monitor.setTextColor(colors.red)
+					monitor.setTextColor(colors["red"])
 					monitor.write(c2["text"])
-					redstone.setOutput("top",false)
+					redstone.setOutput(lightside,false)
 					--watchnumber(c2["xx"],77)
 					c2["xx"] = "Off"
 					n = 0
@@ -147,9 +144,9 @@ function main()
 				if c2["xx"] == "Off" and n == nil then
 					print("On.")
 					monitor.setCursorPos(c2x,c2y)
-					monitor.setTextColor(colors.green)
+					monitor.setTextColor(colors["green"])
 					monitor.write(c2["text"])
-					redstone.setOutput("top",true)
+					redstone.setOutput(lightside,true)
 					--watchnumber(c2["xx"],77)
 					c2["xx"] = "On"
 					end
@@ -166,9 +163,9 @@ function main()
 				end
 			end
 		if screen == 2 then
-			monitor.setTextColor(colors.white)
+			monitor.setTextColor(colors["white"])
 			monitor.clear()
-			monitor.setCursorPos(1,1)
+			monitor.setCursorPos(1,1) 
 			monitor.write("Nodes:")
 			monitor.setCursorPos(1,2)
 			monitor.write("1: "..status[1])
@@ -188,10 +185,47 @@ function main()
 				end
 			ooooo = nil	
 			end
-		monitor.setTextColor(colors.white)
+		monitor.setTextColor(colors["white"])
 	until x == 1
 end
+colors = {}
+if term.isColor() then
+	colors["white"] = colors.white
+	colors["black"] = colors.black
+	colors["lgray"] = colors.lightGray
+	colors["gray"] = colors.gray
+	colors["brown"] = colors.brown
+	colors["yellow"] = colors.yellow
+	colors["orange"] = colors.orange
+	colors["red"] = colors.red
+	colors["magenta"] = colors.magenta
+	colors["purple"] = colors.purple
+	colors["blue"] = colors.blue
+	colors["lblue"] = colors.lightBlue
+	colors["cyan"] = colors.cyan
+	colors["lime"] = colors.lime
+	colors["green"] = colors.green
+end
+if not term.isColor() then
+	colors["lgray"] = colors.white
+	colors["gray"] = colors.black
+	colors["brown"] = colors.white
+	colors["yellow"] = colors.white
+	colors["orange"] = colors.white
+	colors["red"] = colors.white
+	colors["magenta"] = colors.white
+	colors["purple"] = colors.white
+	colors["green"] = colors.white
+	colors["blue"] = colors.black
+	colors["lblue"] = colors.white
+	colors["cyan"] = colors.white
+	colors["lime"] = colors.white
+	colors["green"] = colors.white
+end
+lightside = "top"
 rnside = "right"
+m1 = 1 --Server->Client
+r1 = 1.1--Client->Server
 c1 = {}
 c2 = {}
 c3 = {}
@@ -211,14 +245,14 @@ status[2] = f
 status[3] = f
 status[4] = f
 cc = {} --Node ids
-cc[1] = nil
-cc[2] = nil
-cc[3] = nil
-cc[4] = nil
+cc[1] = 1
+cc[2] = 2
+cc[3] = 3
+cc[4] = 4
 --side = "top" --Side that the light is on
 --cb = peripheral.wrap("top") --Command block
 monitor = peripheral.wrap("left")
-monitor.setTextColor(colors.white)
+monitor.setTextColor(colors["white"])
 monitor.clear()
 writing()
 c1["xx"] = 3
