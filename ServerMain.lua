@@ -5,9 +5,9 @@ function tn(q)
    local q = tonumber(q)
 end
 function errormessage(text)
-   term.setTextcolor(colors["red"])
+   term.setTextcolor(red)
    print(text)
-   term.setTextcolor(colors["white"])
+   term.setTextcolor(white)
 end
 function printerror(code,response,line)
    if code == 0 then --watchnumber()
@@ -119,108 +119,127 @@ function clearline(xx,yy)
 end
 function main()
 	repeat 
-		event, side, xPos, yPos = os.pullEvent("monitor_touch")
-		print(event .. " => Side: " .. tostring(side) .. ", " ..
-		"X: " .. tostring(xPos) .. ", " ..
-		"Y: " .. tostring(yPos))
-		if screen == 1 then
-			ooooo = nil
-			if xPos >= c1[1] and xPos <= c1[2] and yPos == c1["y"] then --Reset
-				monitor.clear()
-				writing()
-				end
-			if xPos >= c2[1] and xPos <= c2[2] and yPos == c2["y"] then --Light,2=On,3=Off
-				print(c2["xx"])
-				if c2["xx"] == "On" then
-					print("Off.")
-					monitor.setCursorPos(c2x,c2y)
-					monitor.setTextColor(colors["red"])
-					monitor.write(c2["text"])
-					redstone.setOutput(lightside,false)
-					--watchnumber(c2["xx"],77)
-					c2["xx"] = "Off"
-					n = 0
-					end
-				if c2["xx"] == "Off" and n == nil then
-					print("On.")
-					monitor.setCursorPos(c2x,c2y)
-					monitor.setTextColor(colors["green"])
-					monitor.write(c2["text"])
-					redstone.setOutput(lightside,true)
-					--watchnumber(c2["xx"],77)
-					c2["xx"] = "On"
-					end
-				n = nil	
-				end
-			if xPos >= c3[1] and xPos <= c3[2] and yPos == c3["y"] then --Nodes
-				screen = 2
-				print("Screen 2!")
-				monitor.clear()
-				ooooo = 2
-				end
-			if xPos >= c4[1] and xPos <= c4[2] and yPos == c4["y"] then --Exit
-				x = 1
-				end
-			end
-		if screen == 2 then
-			monitor.setTextColor(colors["white"])
+		event, side, xPos, yPos = os.pullEventRaw()
+		if event == "terminate" then
 			monitor.clear()
-			monitor.setCursorPos(1,1) 
-			monitor.write("Nodes:")
-			monitor.setCursorPos(1,2)
-			monitor.write("1: "..status[1])
-			monitor.setCursorPos(1,5)
-			monitor.write("2: "..status[2])
-			monitor.setCursorPos(1,8)
-			monitor.write("3: "..status[3])
-			monitor.setCursorPos(1,11)
-			monitor.write("4: "..status[4])
-			monitor.setCursorPos(1,12)
-			monitor.write("[Back]") --Location of "[Nodes]"
-			if xPos >= c3[1] and xPos <= c3[2] and yPos == c3["y"] and ooooo == nil then
-				screen = 1
-				print("Screen 1!")
-				monitor.clear()
-				
+			monitor.setCursorPos(1,1)
+			monitor.setBackgroundColor(red)
+			sleep(2)
+			monitor.setBackgroundColor(black)
+			running = false
+		elseif event == "monitor_touch" then
+			print(event .. " => Side: " .. tostring(side) .. ", " ..
+			"X: " .. tostring(xPos) .. ", " ..
+			"Y: " .. tostring(yPos))
+			if screen == 1 then
+				ooooo = nil
+				if xPos >= c1[1] and xPos <= c1[2] and yPos == c1["y"] then --Reset
+					monitor.clear()
+					writing()
+					end
+				if xPos >= c2[1] and xPos <= c2[2] and yPos == c2["y"] then --Light,2=On,3=Off
+					print(c2["xx"])
+					if c2["xx"] == "On" then
+						print("Off.")
+						monitor.setCursorPos(c2x,c2y)
+						monitor.setTextColor(red)
+						monitor.write(c2["text"])
+						redstone.setOutput(lightside,false)
+						--watchnumber(c2["xx"],77)
+						c2["xx"] = "Off"
+						n = 0
+						end
+					if c2["xx"] == "Off" and n == nil then
+						print("On.")
+						monitor.setCursorPos(c2x,c2y)
+						monitor.setTextColor(green)
+						monitor.write(c2["text"])
+						redstone.setOutput(lightside,true)
+						--watchnumber(c2["xx"],77)
+						c2["xx"] = "On"
+						end
+					n = nil	
+					end
+				if xPos >= c3[1] and xPos <= c3[2] and yPos == c3["y"] then --Nodes
+					screen = 2
+					print("Screen 2!")
+					monitor.clear()
+					ooooo = 2
+					end
+				if xPos >= c4[1] and xPos <= c4[2] and yPos == c4["y"] then --Exit
+					monitor.clear()
+					os.reboot()
+					end
 				end
-			ooooo = nil	
+			if screen == 2 then
+				monitor.setTextColor(white)
+				monitor.clear()
+				monitor.setCursorPos(1,1) 
+				monitor.write("Nodes:")
+				monitor.setCursorPos(1,2)
+				monitor.write("1: "..status[1])
+				monitor.setCursorPos(1,5)
+				monitor.write("2: "..status[2])
+				monitor.setCursorPos(1,8)
+				monitor.write("3: "..status[3])
+				monitor.setCursorPos(1,11)
+				monitor.write("4: "..status[4])
+				monitor.setCursorPos(1,12)
+				monitor.write("[Back]") --Location of "[Nodes]"
+				if xPos >= c3[1] and xPos <= c3[2] and yPos == c3["y"] and ooooo == nil then
+					screen = 1
+					print("Screen 1!")
+					monitor.clear()
+					end
+				ooooo = nil	
+				end
+			monitor.setTextColor(white)
 			end
-		monitor.setTextColor(colors["white"])
-	until x == 1
+	until x == 1 or running == false
 end
-colors = {}
-if term.isColor() then
-	colors["white"] = colors.white
-	colors["black"] = colors.black
-	colors["lgray"] = colors.lightGray
-	colors["gray"] = colors.gray
-	colors["brown"] = colors.brown
-	colors["yellow"] = colors.yellow
-	colors["orange"] = colors.orange
-	colors["red"] = colors.red
-	colors["magenta"] = colors.magenta
-	colors["purple"] = colors.purple
-	colors["blue"] = colors.blue
-	colors["lblue"] = colors.lightBlue
-	colors["cyan"] = colors.cyan
-	colors["lime"] = colors.lime
-	colors["green"] = colors.green
+function t()
+	local running = true
+	while running do
+		local event = os.pullEventRaw () 
+		if event == "terminate" then 
+			monitor.clear()
+			monitor.setCursorPos(1,1)
+			monitor.write("You terminated the program, good bye!")
+			running = false
+		end
+	end
 end
+white = colors.white
+black = colors.black
+lgray = colors.lightGray
+gray = colors.gray
+brown = colors.brown
+yellow = colors.yellow
+orange = colors.orange
+red = colors.red
+magenta = colors.magenta
+purple = colors.purple
+blue = colors.blue
+lblue = colors.lightBlue
+cyan = colors.cyan
+lime = colors.lime
+green = colors.green
 if not term.isColor() then
-	colors["lgray"] = colors.white
-	colors["gray"] = colors.black
-	colors["brown"] = colors.white
-	colors["yellow"] = colors.white
-	colors["orange"] = colors.white
-	colors["red"] = colors.white
-	colors["magenta"] = colors.white
-	colors["purple"] = colors.white
-	colors["green"] = colors.white
-	colors["blue"] = colors.black
-	colors["lblue"] = colors.white
-	colors["cyan"] = colors.white
-	colors["lime"] = colors.white
-	colors["green"] = colors.white
+	white = colors.white
+	lgray = colors.white
+	gray = colors.black
+	brown = colors.white
+	yellow = colors.white
+	orange = colors.white
+	red = colors.white
+	magenta = colors.white
+	purple = colors.white
+	green = colors.white
+	blue = colors.black
+	lblue = colors.white
+	cyan = colors.white
+	lime = colors.white
+	green = colors.white
 end
 lightside = "top"
 rnside = "right"
@@ -249,10 +268,8 @@ cc[1] = 1
 cc[2] = 2
 cc[3] = 3
 cc[4] = 4
---side = "top" --Side that the light is on
---cb = peripheral.wrap("top") --Command block
 monitor = peripheral.wrap("left")
-monitor.setTextColor(colors["white"])
+monitor.setTextColor(white)
 monitor.clear()
 writing()
 c1["xx"] = 3
@@ -264,6 +281,5 @@ watchnumber(c3["xx"],79)
 c4["xx"] = 3
 watchnumber(c4["xx"],81)
 screen = 1
+monitor.setBackgroundColor(colors.red)
 main()
-monitor.clear()
-os.reboot()
