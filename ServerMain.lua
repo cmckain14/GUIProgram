@@ -123,7 +123,6 @@ function main()
 		if event == "terminate" then
 			monitor.clear()
 			monitor.setCursorPos(1,1)
-			monitor.setBackgroundColor(red)
 			sleep(2)
 			monitor.setBackgroundColor(black)
 			running = false
