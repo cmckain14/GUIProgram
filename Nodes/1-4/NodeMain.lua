@@ -21,7 +21,7 @@ function Set(list)
 	for _, l in ipairs(list) do set[l] = true end
 	return set
 end
-function color(color) --After each use, please use 'color(white)' to reset color
+function color(color) --After each use, please use 'color(white)' to reset color.
 	local items = Set { "white", "black", "lgray", "gray", "brown", "yellow", "orange", "red", "magenta", "purple", "blue", "lblue", "cyan", "lime", "green" }
 	if items[color] then
 		term.setTextColor(color)
@@ -79,6 +79,14 @@ function createintro2tables()
 	i2first["bcolor"] = gray
 	i2second["bcolor"] = gray
 	i2third["bcolor"] = gray
+end
+function printstatus(lx,ly,f,s) --Do not add spaces.
+	term.setTextColor(white)
+	term.setCursorPos(lx,ly)
+	term.setTextColor(lgray)
+	print(f)
+	term.setTextColor(white)
+	print(" "..s)
 end
 function intro1v1()
 	term.clear()
@@ -208,9 +216,26 @@ function intro2()
 		if booting[1] == true and booting[2] == true and booting[3] == true then
 			intro22 = true
 			end
-	until intro3 == true
+	until intro2 == true
 end
 function clientscreen()
+	term.clear()
+	term.setCursorPos(1,1)
+	local Header = window.create(term.current(),1,1,51,3)
+	Header.setBackgroundColor(green)
+	Header.clear()
+	local t,a = 51,3
+	local t2,a2 = 1,2
+	active = true
+	while active do
+		if screen == 1 then
+			local text = "Fort Client: Status Page"
+			Header.setCursorPos(math.ceil((t / 2) - (text:len() / 2)), a2)
+			Header.write(text)
+			printstatus(1,5,"Name:",name)
+			printstatus(1,7,"ID:",id)
+		end
+	end
 end
 function startuping()
 	sleep(3)
@@ -273,6 +298,7 @@ if not term.isColor() then
 end
  -- Config
 name = os.getComputerLabel()
+id = os.getComputerID()
 rnside = "right"
 m1 = 1 --Server->Client
 r1 = 1.1--Client->Server
@@ -303,4 +329,3 @@ while true do
 if reboot == true then
 	os.reboot()
 	end
-		
