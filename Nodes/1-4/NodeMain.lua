@@ -309,6 +309,7 @@ m1 = tostring(m1)
 r1 = tostring(r1)
 intro1v2()
 parallel.waitForAll( intro2, startuping )
+clientscreen()
  -- Receive Commands
 while true do
 	id,message = rednet.receive()
