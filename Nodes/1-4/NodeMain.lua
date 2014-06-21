@@ -82,10 +82,11 @@ function createintro2tables()
 end
 function printstatus(lx,ly,f,s) --Do not add spaces.
 	term.setBackgroundColor(black)
+	term.clear()
 	term.setTextColor(white)
 	term.setCursorPos(lx,ly)
 	term.setTextColor(lgray)
-	print(f)
+	write(f)
 	term.setTextColor(white)
 	write(" "..s)
 end
