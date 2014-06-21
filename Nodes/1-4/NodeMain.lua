@@ -81,12 +81,13 @@ function createintro2tables()
 	i2third["bcolor"] = gray
 end
 function printstatus(lx,ly,f,s) --Do not add spaces.
+	term.setBackgroundColor(black)
 	term.setTextColor(white)
 	term.setCursorPos(lx,ly)
 	term.setTextColor(lgray)
 	print(f)
 	term.setTextColor(white)
-	print(" "..s)
+	write(" "..s)
 end
 function intro1v1()
 	term.clear()
@@ -219,22 +220,25 @@ function intro2()
 	until intro2 == true
 end
 function clientscreen()
+	screen = 1
 	term.clear()
 	term.setCursorPos(1,1)
-	local Header = window.create(term.current(),1,1,51,3)
-	Header.setBackgroundColor(green)
-	Header.clear()
+	Header = nil
+	shell.run('clear')
+	local Header2 = window.create(term.current(),1,1,51,3)
+	Header2.setBackgroundColor(green)
+	Header2.clear()
 	local t,a = 51,3
 	local t2,a2 = 1,2
 	active = true
-	while active do
-		if screen == 1 then
-			local text = "Fort Client: Status Page"
-			Header.setCursorPos(math.ceil((t / 2) - (text:len() / 2)), a2)
-			Header.write(text)
-			printstatus(1,5,"Name:",name)
-			printstatus(1,7,"ID:",id)
-		end
+	Header2.clear()
+	local text = "Fort Client: Status Page"
+	Header2.setCursorPos(math.ceil((t / 2) - (text:len() / 2)), a2)
+	Header2.setTextColor(white)
+	Header2.write(text)
+	if screen == 1 then	
+		printstatus(1,5,"Name:",name)
+		printstatus(1,7,"ID:",id)
 	end
 end
 function startuping()
