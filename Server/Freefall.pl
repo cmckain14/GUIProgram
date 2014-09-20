@@ -35,7 +35,7 @@ while ($continueYN eq "y")
 
 Sub math{
    $Time = sqrt(($Distance*2)/9.8);
-   print "It took the object: ".$Time." seconds to hit the ground\n";
+   print "It took the object ".$Time." seconds to hit the ground\n";
 }
 ( $Distance ) = @ARGV;
 
