@@ -33,8 +33,10 @@ while ($continueYN eq "y")
 }
 
 
-
-
+Sub math{
+   $Time = sqrt(($Distance*2)/9.8);
+   print "It took the object: ".$Time." seconds to hit the ground\n";
+}
 ( $Distance ) = @ARGV;
 
 $continueYN = "y";
@@ -43,26 +45,18 @@ while ($continueYN eq "y")
 {
    unless ($Distance) {
    print "Enter in the height of the building:";
- 
    $Distance = <STDIN>; }
    chomp($Distance);
- 
-   $Time = sqrt(($Distance*2)/9.8);
- 
-   print "It took the object: ".$Time." seconds to hit the ground\n";
- 
+   Math();
    if ($Distance < 1)
    {
-      print "Not quite long enouigh but it still works!\n";
+      print "Not quite long enough but it still works!\n";
    }
- 
    if ($Distance > 100)
    {
       print "Are you throwing pennies out the World Trade Center?\n";
    }
- 
    print "More physics homework?";
- 
    $continueYN = <STDIN>;
    chomp($continueYN);
 }
