@@ -37,36 +37,30 @@ while ($continueYN eq "y")
 
 
 
-
-#...initialize looping variable, assume 'yes' as the first answer
 $continueYN = "y";
  
 while ($continueYN eq "y")
 {
-   #...get temperature input from the user
-   print "Enter next temperature in degrees Farenheight (F):";
+   print "Enter in the height of the building:";
  
-   $degreeF = <STDIN>;
-   chomp($degreeF);
+   $Distance = <STDIN>;
+   chomp($Distance);
  
-   #...convert temperature from F to Celsius
-   $degreeC = ($degreeF - 32) * 5 / 9;
+   $Time = sqrt(($Distance*2)/9.8);
  
-   print "Temperature in degrees C is: ".$degreeC."\n";
+   print "It took the object: ".$Time." seconds to hit the ground\n";
  
-   #...check for temperature below freezing..
-   if ($degreeC < 0)
+   if ($Distance < 1)
    {
-      print "Pack long underwear!\n";
+      print "Not quite long enouigh but it still works!\n";
    }
  
-   #...check for it being a hot day...
-   if ($degreeF > 100)
+   if ($Distance > 100)
    {
-      print "Remember to hydrate!\n";
+      print "Are you throwing pennies out the World Trade Center?\n";
    }
  
-   print "Input another?";
+   print "More physics homework?";
  
    $continueYN = <STDIN>;
    chomp($continueYN);
