@@ -35,15 +35,16 @@ while ($continueYN eq "y")
 
 
 
-
+( $Distance ) = @ARGV;
 
 $continueYN = "y";
  
 while ($continueYN eq "y")
 {
+   unless ($Distance) {
    print "Enter in the height of the building:";
  
-   $Distance = <STDIN>;
+   $Distance = <STDIN>; }
    chomp($Distance);
  
    $Time = sqrt(($Distance*2)/9.8);
