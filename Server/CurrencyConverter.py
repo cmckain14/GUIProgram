@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-import sys
-try:
-    sDollars = sys.argv[1]
-except IndexError:
+def fib()
+    import sys
+    try:
+        sDollars = sys.argv[1]
+    except IndexError:
 	sDollars = 0 
+return;
 continueYN = "y"
 while continueYN == "y":
+   fib()
    if sDollars is 0:
     sDollars = input("Enter the amount of dollars you would like to convert to pounds and/or euros:") 
    try:
